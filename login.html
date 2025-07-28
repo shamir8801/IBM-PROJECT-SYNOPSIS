@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redesigned Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional CSS for enhanced 3D effects */
+        .input-field {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            transform: perspective(1000px) translateZ(0);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .input-field:focus {
+            transform: perspective(1000px) translateZ(20px);
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+        }
+
+        .submit-btn {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            transform: perspective(1000px) translateZ(0);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .submit-btn:hover {
+            transform: perspective(1000px) translateZ(20px);
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen bg-cover bg-center relative" style="background-image: url('/static/hospital_template/assets/img/elements/g4.jpg');">
+    <!-- Background Mask -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+
+    <form action="/login" method="post" class="relative z-10 bg-white bg-opacity-90 p-8 rounded-lg shadow-lg w-80 max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Login</h2>
+
+        <div class="mb-4">
+            <input type="text" name="username" autocomplete="off" placeholder="Enter Username" class="input-field w-full px-4 py-2 rounded-md border focus:border-blue-400 transition ease-in-out">
+        </div>
+
+        <div class="mb-6">
+            <input type="password" name="password" placeholder="Enter Password" class="input-field w-full px-4 py-2 rounded-md border focus:border-blue-400 transition ease-in-out">
+        </div>
+
+        <div>
+            <input type="submit" name="submit" value="Login" class="submit-btn w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 cursor-pointer transition ease-in-out">
+        </div>
+    </form>
+</body>
+</html>

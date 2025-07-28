@@ -1,0 +1,190 @@
+{% extends 'Inventory_Manager/index.html' %}
+{% block body %}
+
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Form Container */
+    .form-container {
+        width: 60%;
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        animation: slideUp 0.5s ease-out;
+    }
+
+    /* Form Header */
+    .form-container h2 {
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    /* Input Fields */
+    input[type="text"], input[type="file"], select {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="file"] {
+        padding: 7px;
+    }
+
+    input[type="text"]:focus, select:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    /* Submit Button */
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Image Styling */
+    td img {
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    td img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Hover Effects on Table Rows */
+    tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Submit Button Container */
+    .submit-button {
+        text-align: center;
+        animation: fadeInUp 1s ease-in-out;
+    }
+
+    /* Animation for Elements */
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="form-container">
+    <h2>Edit Inventory</h2>
+    <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="category">
+                        {% for i in category %}
+                            <option value="{{ i.id }}" {% if i.id == inventory.CATEGORY.id %}selected{% endif %}>
+                                {{ i.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" value="{{ inventory.name }}" name="name" required /></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td><input type="text" value="{{ inventory.quantity }}" name="quantity" required /></td>
+            </tr>
+            <tr>
+                <td>Previous Image</td>
+                <td><a href="{{ inventory.photo.url }}"> <img src="{{ inventory.photo.url }}" height="50" width="50" /></a></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="photo" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="submit-button">
+                    <input type="submit" name="Submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

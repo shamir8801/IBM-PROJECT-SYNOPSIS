@@ -1,0 +1,117 @@
+{% extends 'doctor/base.html' %}
+{% block body %}
+
+<style>
+    /* Container for the form */
+    .form-container {
+        width: 60%;
+        max-width: 700px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Input Fields */
+    input[type="text"],input[type="date"], input[type="file"], select {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
+    }
+
+    input[type="file"] {
+        padding: 7px;
+    }
+
+    /* Submit Button */
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Centering Submit Button */
+    .submit-button {
+        text-align: center;
+    }
+
+    /* Form Header */
+    .form-container h2 {
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+</style>
+
+<div class="form-container">
+    <h2> Patient Details</h2>
+    <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+        <table>
+
+            <tr>
+                <td>Plan</td>
+                <td><textarea name="plan" required class="form-control" rows="5"></textarea> </td>
+            </tr>
+            <tr>
+                <td>Medicine</td>
+                <td><textarea name="med" required class="form-control"rows="5"></textarea> </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><textarea name="s" required class="form-control"rows="5"></textarea> </td>
+            </tr>
+
+
+
+            <tr>
+                <td colspan="2" class="submit-button">
+                    <input type="submit" name="Submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

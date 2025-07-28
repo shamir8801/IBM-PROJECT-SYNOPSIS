@@ -1,0 +1,128 @@
+{% extends 'Incharge/base.html' %}
+{% block body %}
+
+<style>
+  /* Container and Table Styling */
+  .inventory-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  .inventory-table th,
+  .inventory-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .inventory-table th {
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: 600;
+  }
+  .inventory-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  .inventory-table img {
+    max-height: 50px;
+    border-radius: 4px;
+  }
+  .btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+  }
+
+  /* Modal Styling */
+  .modal-header {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+  .modal-footer .btn-secondary {
+    background-color: #ccc;
+    border-color: #ccc;
+  }
+</style>
+
+<div class="inventory-container">
+  <h2 class="text-center">Inventory Management</h2>
+  <table class="inventory-table">
+    <thead>
+      <tr>
+
+        <th>Category</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Date</th>
+        <th>Photo</th>
+        <th>Send Request</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in pd %}
+      <tr>
+
+        <td>{{ i.PRODUCT.CATEGORY.name }}</td>
+        <td>{{ i.PRODUCT.name }}</td>
+        <td>{{ i.quantity }}</td>
+        <td>{{ i.PRODUCT.date }}</td>
+        <td>
+          <a href="{{ i.PRODUCT.photo.url }}"><img src="{{ i.PRODUCT.photo.url }}" alt="Inventory Photo"></a>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestModal" onclick="openModal('{{ i.PRODUCT.id }}')">
+            Send Request
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requestModalLabel">Send Inventory Request</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="{% url 'send_request_inventry_user' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="inventory_id" id="inventoryId">
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for Modal -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+  function openModal(inventoryId) {
+    document.getElementById("inventoryId").value = inventoryId;
+  }
+</script>
+
+{% endblock %}

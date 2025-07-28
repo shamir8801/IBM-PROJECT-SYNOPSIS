@@ -1,0 +1,122 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    /* Container for the form */
+    .form-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Header styling */
+    h2 {
+        text-align: center;
+        color: #343a40;
+        margin-bottom: 20px;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Submit button styling */
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Add animation to form */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        <h2>New Ward Registration</h2>
+        <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Ward Number</td>
+                    <td><input type="text" name="ward_number" placeholder="Enter Ward Number" class="form-control" required/></td>
+                </tr>
+                <tr>
+                    <td>Capacity</td>
+                    <td><input type="number" name="capacity" placeholder="Enter Capacity"  class="form-control" min="1"  required/></td>
+                </tr>  <tr>
+                    <td>Details</td>
+                    <td><input type="text" name="details" placeholder="Enter Details"  class="form-control"  required/></td>
+                </tr>
+                <tr>
+                    <td>Photo</td>
+                    <td><input type="file" name="photo" required accept="image/*" required/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div align="center">
+                            <input type="submit" name="Submit" value="Submit" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+{% endblock %}

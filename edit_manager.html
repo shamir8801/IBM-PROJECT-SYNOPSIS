@@ -1,0 +1,145 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+    /* Container for the form */
+    .form-container {
+        width: 80%;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Heading */
+    .form-container h2 {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    /* Input Fields */
+    input[type="text"],
+    input[type="date"],
+    input[type="file"],
+    input[type="radio"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    /* Submit Button */
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Label Styling */
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Gender Radio Buttons */
+    td input[type="radio"] {
+        width: auto;
+    }
+
+    /* Image Styling */
+    td img {
+        border-radius: 50%;
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        <h2>Edit Manager Information</h2>
+        <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" value="{{ manager.name }}" required pattern="[a-zA-Z .]{2,50}"/></td>
+                </tr>
+                <tr>
+                    <td>Number</td>
+                    <td><input type="text" name="number" value="{{ manager.number }}" required pattern="[9876][0-9]{9}" /></td>
+                </tr>
+                <tr>
+                    <td>Previous Image</td>
+                    <td><img src="{{ manager.photo.url }}" height="50" width="50" alt="Manager's Photo" /></td>
+                </tr>
+                <tr>
+                    <td>New Photo</td>
+                    <td><input type="file" name="photo"  accept="image/*"/></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        Male: <input type="radio" name="gender" value="male" {% if manager.gender == 'male' %}checked{% endif %}>
+                        Female: <input type="radio" name="gender" value="female" {% if manager.gender == 'female' %}checked{% endif %}>
+                        Other: <input type="radio" name="gender" value="other" {% if manager.gender == 'other' %}checked{% endif %}>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td><input type="date" name="dob" value="{{ manager.dob|date:'Y-m-d' }}" max="2004-12-31" required/></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="email" value="{{ manager.email }}" required pattern="[a-z_.0-9]{2,50}[@][a-z]{2,15}[.][a-z]{2,15}"  /></td>
+                </tr>
+                <tr>
+                    <td>Place</td>
+                    <td><input type="text" name="place" value="{{ manager.place }}" required  pattern="[a-z0-9 ./]{2,50}" /></td>
+                </tr>
+                <tr>
+                    <td>Post</td>
+                    <td><input type="text" name="post" value="{{ manager.post }}" required  pattern="[a-z0-9 ./]{2,50}" /></td>
+                </tr>
+                <tr>
+                    <td>Pin</td>
+                    <td><input type="text" name="pin" value="{{ manager.pin }}"  required  pattern="[0-9]{6}"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div align="center">
+                            <input type="submit" name="Submit" value="Submit" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+    /* Container for the Incharge List */
+    .incharge-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading Style */
+    h2 {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    /* Add New Incharge Link */
+    .add-incharge-link {
+        display: block;
+        margin: 20px 0;
+        text-align: center;
+        font-size: 18px;
+        text-decoration: none;
+        color: #007bff;
+        padding: 10px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .add-incharge-link:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f8f8f8;
+        color: #333;
+    }
+
+    td {
+        background-color: #fafafa;
+        color: #555;
+    }
+
+    td img {
+        border-radius: 50%;
+    }
+
+    /* Manage Links */
+    td a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    td a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    /* Alternate row colors */
+    tr:nth-child(even) td {
+        background-color: #f1f1f1;
+    }
+
+    tr:nth-child(odd) td {
+        background-color: #ffffff;
+    }
+</style>
+
+<body>
+    <div class="incharge-container">
+        <h2>Incharge List</h2>
+        <a href="/add_new_incharge" class="add-incharge-link">Add New Incharge</a>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Gender</th>
+                <th>Dob</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Image</th>
+                <th>Manage</th>
+            </tr>
+
+            {% for i in incharge %}
+            <tr>
+                <td>{{ i.name }}</td>
+                <td>{{ i.number }}</td>
+                <td>{{ i.gender }}</td>
+                <td>{{ i.dob }}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.place }}, {{ i.post }}, {{ i.pin }}</td>
+                <td><img src="{{ i.photo.url }}" height="50" width="50" alt="Incharge Photo"></td>
+                <td>
+                    <a href="/edit_incharge/{{ i.id }}">Edit</a> /
+                    <a href="/delete_incharge/{{ i.id }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+{% endblock %}

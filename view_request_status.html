@@ -1,0 +1,88 @@
+{% extends 'Incharge/base.html' %}
+{% block body %}
+
+<div class="container">
+    <!-- Search Inputs -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <input type="text" id="searchCategory" class="form-control" placeholder="Search by Category"
+                   style="height: 50px; font-size: 18px;">
+        </div>
+        <div class="col-md-6">
+            <input type="text" id="searchName" class="form-control" placeholder="Search by Product Name"
+                   style="height: 50px; font-size: 18px;">
+        </div>
+    </div>
+
+    <div class="row" id="cardContainer">
+        {% for i in page_obj %}
+        <div class="col-md-4 mb-4 card-item">
+            <div class="card" style="border: 2px solid {% if i.status == 'pending' %}#f8d7da{% elif i.status == 'accepted' %}#d4edda{% endif %}; background-color: {% if i.status == 'pending' %}#f8d7da{% elif i.status == 'accepted' %}#d4edda{% endif %};">
+                <div class="card-body">
+                    <h2 class="card-title">Product: {{ i.PRODUCT.name }}</h2>
+                    <p class="card-text">
+                        <strong>Category:</strong> {{ i.PRODUCT.CATEGORY.name }}<br>
+                        <strong>Quantity:</strong> {{ i.quantity }}<br>
+                        <strong>Date:</strong> {{ i.date }}<br>
+                        <strong>Added By:</strong> {{ i.PRODUCT.ADDED_BY.name }}<br>
+                        <strong>Phone Number:</strong> {{ i.PRODUCT.ADDED_BY.number }}<br>
+                        <strong>Status:</strong> {{ i.status }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination justify-content-center">
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchCategoryInput = document.getElementById('searchCategory');
+    const searchNameInput = document.getElementById('searchName');
+    const cardItems = document.querySelectorAll('.card-item');
+
+    function filterCards() {
+        const categoryValue = searchCategoryInput.value.toLowerCase();
+        const nameValue = searchNameInput.value.toLowerCase();
+
+        cardItems.forEach(card => {
+            const cardCategory = card.querySelector('.card-text strong:nth-child(1)').nextSibling.textContent.trim().toLowerCase();
+            const cardName = card.querySelector('.card-title').textContent.replace('Product: ', '').trim().toLowerCase();
+
+            // Show or hide card based on search criteria
+            if ((cardCategory.includes(categoryValue) || categoryValue === '') &&
+                (cardName.includes(nameValue) || nameValue === '')) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    searchCategoryInput.addEventListener('input', filterCards);
+    searchNameInput.addEventListener('input', filterCards);
+});
+</script>
+
+{% endblock %}

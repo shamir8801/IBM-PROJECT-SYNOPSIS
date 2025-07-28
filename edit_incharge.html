@@ -1,0 +1,168 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+    /* Container Styles */
+    .form-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Heading */
+    h2 {
+        text-align: center;
+        color: #333;
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    /* Label Styling */
+    label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    /* Input Field Styling */
+    input[type="text"], input[type="date"], input[type="file"], input[type="radio"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    input[type="radio"] {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    /* Submit Button Styling */
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Image Styling */
+    img {
+        border-radius: 5px;
+    }
+
+    /* Table Layout Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    /* Centering elements */
+    .form-table td {
+        vertical-align: top;
+    }
+
+    .form-table input {
+        margin-top: 5px;
+    }
+
+    /* Radio Button Container */
+    .gender-options {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+    }
+
+    .gender-options label {
+        margin-right: 10px;
+    }
+
+    .image-preview {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+</style>
+
+<body>
+    <div class="form-container">
+        <h2>Incharge Information</h2>
+        <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+            <table class="form-table">
+                <tr>
+                    <td><label for="name">Name</label></td>
+                    <td><input type="text" name="name" value="{{ incharge.name }}"  required pattern="[a-zA-Z .]{2,50}" /></td>
+                </tr>
+                <tr>
+                    <td><label for="number">Number</label></td>
+                    <td><input type="text" name="number" value="{{ incharge.number }}" required pattern="[9876][0-9]{9}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="photo">Previous Image</label></td>
+                    <td class="image-preview">
+                        <a href="{{ incharge.photo.url }}"><img src="{{ incharge.photo.url }}" height="80" width="100" alt="Incharge Photo"/></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="photo">New Photo</label></td>
+                    <td><input type="file" name="photo"  accept="image/*"/></td>
+                </tr>
+                <tr>
+                    <td><label>Gender</label></td>
+                    <td class="gender-options">
+                        Male: <input type="radio" name="gender" value="male" {% if incharge.gender == 'male' %}checked{% endif %}>
+                        Female: <input type="radio" name="gender" value="female" {% if incharge.gender == 'female' %}checked{% endif %}>
+                        Other: <input type="radio" name="gender" value="other" {% if incharge.gender == 'other' %}checked{% endif %}>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dob">Date of Birth</label></td>
+                    <td><input type="date" name="dob" value="{{ incharge.dob|date:'Y-m-d' }}" max="2004-12-31" required /></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email</label></td>
+                    <td><input type="text" name="email" value="{{ incharge.email }}" required  pattern="[a-z_.0-9]{2,50}[@][a-z]{2,15}[.][a-z]{2,15}" /></td>
+                </tr>
+                <tr>
+                    <td><label for="place">Place</label></td>
+                    <td><input type="text" name="place" value="{{ incharge.place }}" required  pattern="[a-z0-9 ./]{2,50}" /></td>
+                </tr>
+                <tr>
+                    <td><label for="post">Post</label></td>
+                    <td><input type="text" name="post" value="{{ incharge.post }}" required  pattern="[a-z0-9 ./]{2,50}" /></td>
+                </tr>
+                <tr>
+                    <td><label for="pin">Pin</label></td>
+                    <td><input type="text" name="pin" value="{{ incharge.pin }}" required  pattern="[0-9]{6}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <input type="submit" name="Submit" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

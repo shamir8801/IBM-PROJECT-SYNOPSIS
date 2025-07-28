@@ -1,0 +1,119 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+
+
+    /* Form Container Styling */
+    .form-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Heading Style */
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 24px;
+    }
+
+    /* Input Fields Styling */
+    input[type="text"],input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin: 10px 0;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,input[type="number"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    .select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin: 10px 0;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .select {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Submit Button Styling */
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 12px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Center the Submit Button */
+    .submit-btn-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Animation for Form */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        <h2>Room Details</h2>
+        <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+
+   <label for="room_number">Room Number</label>
+            <input type="number" name="room_number" id="room_number" placeholder="Enter Room Number" required min="1"/>
+
+   <label for="room_number">Room Details</label>
+            <input type="text" name="rd" id="rd" placeholder="Enter Room Details" required/>
+
+   <label for="room_number">Room Image</label><br/>
+            <input type="file" name="fn" id="fn" required class="form-control" required accept="image/*"/><br/>
+
+            <label for="capacity">Sharing Type</label>
+            <input type="number" name="capacity" id="capacity" placeholder="Sharing Type" required min="1" />
+
+            <label for="capacity">Rent</label>
+            <input type="number" name="r" id="r" placeholder="Enter Rent" required min="1" />
+
+            <div class="submit-btn-container">
+                <input type="submit" name="Submit" value="Submit" />
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

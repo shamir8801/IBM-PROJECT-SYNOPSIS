@@ -1,0 +1,133 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+    /* Container for the Cards */
+    .incharge-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading Style */
+    h2 {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    /* Add New Incharge Link */
+    .add-incharge-link {
+        display: block;
+        margin: 20px 0;
+        text-align: center;
+        font-size: 18px;
+        text-decoration: none;
+        color: #007bff;
+        padding: 10px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .add-incharge-link:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Card Container */
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 4 cards per row */
+        gap: 20px;
+    }
+
+    /* Responsive Design for Smaller Screens */
+    @media (max-width: 1024px) {
+        .card-container {
+            grid-template-columns: repeat(2, 1fr); /* 2 cards per row for medium screens */
+        }
+    }
+
+    @media (max-width: 600px) {
+        .card-container {
+            grid-template-columns: 1fr; /* 1 card per row for small screens */
+        }
+    }
+
+    /* Individual Card Styling */
+    .card {
+        background-color: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
+
+    .card h3 {
+        font-size: 20px;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .card p {
+        font-size: 16px;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .card a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 12px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .card a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="incharge-container">
+        <h2>Doctor List</h2>
+        <a href="/add_new_doc" class="add-incharge-link">Add New Doctor</a>
+
+        <div class="card-container">
+            {% for i in doc %}
+            <div class="card">
+                <img src="{{ i.photo.url }}" alt="Doctor Photo">
+                <h3>{{ i.name }}</h3>
+                <p><strong>Number:</strong> {{ i.number }}</p>
+                <p><strong>Gender:</strong> {{ i.gender }}</p>
+                <p><strong>DOB:</strong> {{ i.dob }}</p>
+                <p><strong>Email:</strong> {{ i.email }}</p>
+                <p><strong>Address:</strong> {{ i.place }}, {{ i.post }}, {{ i.pin }}</p>
+                <p><strong>Qualification:</strong> {{ i.qualification }}</p>
+                <p><strong>Department:</strong> {{ i.department }}</p>
+                <a href="/delete_doc/{{ i.id }}">Delete</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+{% endblock %}

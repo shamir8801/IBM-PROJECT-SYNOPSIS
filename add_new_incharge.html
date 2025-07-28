@@ -1,0 +1,166 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+
+<style>
+    /* Container Styles */
+    .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Heading */
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 26px;
+    }
+
+    /* Label Styling */
+    label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    /* Input Field Styling */
+    input[type="text"], input[type="date"], input[type="file"], input[type="radio"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    input[type="radio"] {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    /* Submit Button Styling */
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Table Layout Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    .form-table td {
+        vertical-align: top;
+    }
+
+    /* Centering elements */
+    .form-table input {
+        margin-top: 5px;
+    }
+
+    /* Form Fields Container */
+    .form-fields {
+        margin-bottom: 20px;
+    }
+   .select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin: 10px 0;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .select {
+        border-color: #007bff;
+        outline: none;
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        <h2>Incharge Information</h2>
+        <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+            <table class="form-table">
+                <tr class="form-fields">
+                    <td><label for="name">Name</label></td>
+                    <td><input type="text" name="name" id="name" required pattern="[a-zA-Z .]{2,50}" /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="number">Number</label></td>
+                    <td><input type="text" name="number" id="number" required pattern="[9876][0-9]{9}" /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="photo">Photo</label></td>
+                    <td><input type="file" name="photo" id="photo" accept="image/*" required /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label>Gender</label></td>
+                    <td>
+                        Male: <input type="radio" name="gender" value="male" checked/>
+                        Female: <input type="radio" name="gender" value="female" />
+                        Other: <input type="radio" name="gender" value="other" />
+                    </td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="dob"><br>Date of Birth</label></td>
+                    <td><input type="date" name="dob" id="dob" max="2004-12-31" required /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="email">Email</label></td>
+                    <td><input type="text" name="email" id="email" required pattern="[a-z_.0-9]{2,50}[@][a-z]{2,15}[.][a-z]{2,15}"  /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="place">Place</label></td>
+                    <td><input type="text" name="place" id="place" required pattern="[a-z0-9 ./]{2,50}" /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="post">Post</label></td>
+                    <td><input type="text" name="post" id="post" required  pattern="[a-zA-Z .]{2,50}" /></td>
+                </tr>
+                <tr class="form-fields">
+                    <td><label for="pin">Pin</label></td>
+                    <td><input type="text" name="pin" id="pin" required  pattern="[0-9]{6}" /></td>
+                </tr> <tr class="form-fields">
+                    <td><label for="pin">Ward</label></td>
+                    <td>  <select name="ward" id="ward" required class="select">
+                <option value="">Select Ward</option>
+                {% for i in val %}
+                    <option value="{{ i.id }}">{{ i.ward_number }}</option>
+                {% endfor %}
+            </select></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <input type="submit" name="Submit" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

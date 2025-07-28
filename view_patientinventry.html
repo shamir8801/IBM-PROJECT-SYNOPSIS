@@ -1,0 +1,126 @@
+
+
+{% extends 'Incharge/base.html' %}
+{% block body %}
+
+<style>
+  /* Page Container */
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+  }
+
+  /* Card Styling */
+  .patient-card {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .patient-card h2 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+  }
+
+  .patient-card p {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+  }
+
+  .patient-card strong {
+    font-weight: 600;
+  }
+
+  /* Table Styling */
+  .room-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  /* Table Header Styling */
+  .room-table th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 15px;
+    font-size: 16px;
+    text-align: left;
+  }
+
+  /* Table Data Styling */
+  .room-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  /* Alternating Row Colors */
+  .room-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* Hover Effect on Rows */
+  .room-table tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Empty Cell Styling */
+  .room-table td:last-child {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+
+<div class="page-container">
+  <!-- Patient Card -->
+
+  <!-- Table for Room Details -->
+  <table class="room-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Inventry</th>
+        <th>Quantity</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in pd %}
+      <tr>
+        <td>{{ i.date }}</td>
+        <td>{{ i.PRODUCT.name }} {{ i.PRODUCT.CATEGORY.name }}</td>
+        <td>{{ i.quantity }}</td>
+
+
+      </tr>
+      {% endfor %}
+    <tr>
+        <td colspan="4">
+            <div align="center">
+                <a href="/allocate_inventry_new" class="btn btn-primary">Add New</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

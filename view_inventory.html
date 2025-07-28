@@ -1,0 +1,118 @@
+{% extends 'Inventory_Manager/index.html' %}
+{% block body %}
+
+<style>
+  /* Container */
+  .inventory-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Title Links */
+  .inventory-links {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  .inventory-links a {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #4CAF50;
+    padding: 12px 20px;
+    border: 1px solid #4CAF50;
+    border-radius: 6px;
+    margin: 0 12px;
+    transition: all 0.3s ease;
+  }
+  .inventory-links a:hover {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+
+  /* Table */
+  .inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+  .inventory-table th,
+  .inventory-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .inventory-table th {
+    background-color: #f8f8f8;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  .inventory-table td {
+    font-size: 14px;
+    color: #555;
+  }
+  .inventory-table td a {
+    text-decoration: none;
+    color: #4CAF50;
+    padding: 0; /* Remove padding */
+    margin-right: 12px;
+    transition: all 0.3s ease;
+  }
+  .inventory-table td a:hover {
+    background-color: transparent; /* Remove any background on hover */
+    color: #4CAF50; /* Maintain green color */
+  }
+  .inventory-table td img {
+    max-width: 120px;
+    border-radius: 6px;
+    display: block; /* Ensures no extra space around the image */
+  }
+</style>
+
+<div class="inventory-container">
+  <div class="inventory-links">
+    <a href="/view_category">Manage Category</a>
+    <a href="/add_inventory">Add New Inventory</a>
+  </div>
+
+  <table class="inventory-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Date</th>
+        <th>Photo</th>
+        <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in inventory %}
+      <tr>
+        <td>{{ i.CATEGORY.name }}</td>
+        <td>{{ i.name }}&nbsp;</td>
+        <td>{{ i.quantity }}&nbsp;</td>
+        <td>{{ i.date }}&nbsp;</td>
+        <td>
+          <a href="{{ i.photo.url }}">
+            <img src="{{ i.photo.url }}" alt="{{ i.name }} photo">
+          </a>
+        </td>
+        <td>
+          <a href="/edit_inventory/{{ i.id }}">Edit</a>
+          <a href="/delete_inventory/{{ i.id }}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

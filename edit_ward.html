@@ -1,0 +1,102 @@
+{% extends 'hospital/base.html' %}
+{% block body %}
+<style>
+
+
+    form {
+        max-width: 500px;
+        margin: auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    td:first-child {
+        font-weight: bold;
+        color: #333;
+        width: 50%;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        font-size: 16px;
+        color: #495057;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+        border-color: #80bdff;
+        outline: none;
+    }
+
+    img {
+        border-radius: 8px;
+    }
+
+    .submit-button {
+        text-align: center;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<body>
+    <form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Ward Number</td>
+                <td><input type="text" name="ward_number" value="{{ ward.ward_number }}" required /></td>
+            </tr> <tr>
+                <td>Details</td>
+                <td><input type="text" name="details" value="{{ ward.details }}" required/></td>
+            </tr>
+            <tr>
+                <td>Capacity</td>
+                <td><input type="number" name="capacity" value="{{ ward.capacity }}" required min="1"/></td>
+            </tr>
+            <tr>
+                <td>Previous Image</td>
+                <td><a href="{{ ward.photo.url }}"><img src="{{ ward.photo.url }}" height="50" width="50"></a></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="photo" required accept="image/*"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="submit-button">
+                    <input type="submit" name="Submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+{% endblock %}

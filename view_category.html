@@ -1,0 +1,101 @@
+{% extends 'Inventory_Manager/index.html' %}
+{% block body %}
+
+<style>
+    /* Container for the page */
+    .category-container {
+        width: 80%;
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title Links Styling */
+    .category-links {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .category-links a {
+        font-size: 18px;
+        text-decoration: none;
+        color: #4CAF50;
+        padding: 10px 15px;
+        border: 1px solid #4CAF50;
+        border-radius: 5px;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+    }
+
+    .category-links a:hover {
+        background-color: #4CAF50;
+        color: #fff;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Manage Links Styling */
+    td a {
+        text-decoration: none;
+        color: #4CAF50;
+        padding: 5px 10px;
+        border: 1px solid #4CAF50;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    td a:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+<div class="category-container">
+    <div class="category-links">
+        <a href="/add_new_category">Add New Category</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Manage</th>
+        </tr>
+        {% for i in category %}
+        <tr>
+            <td>{{ i.name }}</td>
+            <td>
+                <a href="/edit_category/{{ i.id }}">Edit</a>
+                <a href="/delete_category/{{ i.id }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

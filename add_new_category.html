@@ -1,0 +1,85 @@
+{% extends 'Inventory_Manager/index.html' %}
+{% block body %}
+
+<style>
+    /* Container for the form */
+    .form-container {
+        width: 50%;
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Input Field Styling */
+    input[type="text"], input[type="submit"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
+    }
+
+    input[type="text"] {
+        background-color: #f9f9f9;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Add New Category</h2>
+    <form id="form1" name="form1" method="post" action="">
+        <table>
+            <tr>
+                <td><label for="name">Category Name</label></td>
+                <td><input type="text" name="name" id="name" placeholder="Enter category name" required/></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <input type="submit" name="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

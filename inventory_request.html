@@ -1,0 +1,188 @@
+{% extends 'Inventory_Manager/index.html' %}
+
+{% block body %}
+
+<style>
+  /* General Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 40px;
+  }
+
+  /* Table Styling */
+  .inventory-request-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .inventory-request-table th,
+  .inventory-request-table td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 14px;
+  }
+
+  .inventory-request-table th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .inventory-request-table td {
+    color: #555;
+    vertical-align: middle;
+  }
+
+  /* Hover Effects */
+  .inventory-request-table tr:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+  }
+
+  .inventory-request-table td img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Action Links */
+  .action-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .action-links a {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .action-links a:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
+  .action-links a.reject {
+    background-color: #dc3545;
+  }
+
+  .action-links a.reject:hover {
+    background-color: #c82333;
+  }
+
+  /* Card-style layout for table rows */
+  .inventory-request-table tr {
+    transition: all 0.3s ease;
+  }
+
+  .inventory-request-table td {
+    background-color: #fafafa;
+  }
+
+  .inventory-request-table td:first-child {
+    font-weight: 600;
+  }
+
+  /* No Requests Styling */
+  .no-requests {
+    font-size: 18px;
+    text-align: center;
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .inventory-request-table th, .inventory-request-table td {
+      font-size: 12px;
+      padding: 12px;
+    }
+
+    .inventory-request-table td img {
+      width: 60px;
+      height: 60px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+  }
+</style>
+
+<div class="container">
+  <h1>Inventory Request Management</h1>
+
+  {% if inventory_request %}
+    <table class="inventory-request-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Sender</th>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Photo</th>
+          <th>Verify</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in inventory_request %}
+        <tr>
+          <td>{{ i.PRODUCT.CATEGORY.name }}</td>
+          <td>{{ i.SENDER.name }}</td>
+          <td>{{ i.SENDER.number }}</td>
+          <td>{{ i.PRODUCT.name }}</td>
+          <td>{{ i.quantity }}</td>
+          <td>{{ i.date }}</td>
+          <td>
+            <a href="{{ i.PRODUCT.photo.url }}">
+              <img src="{{ i.PRODUCT.photo.url }}" alt="{{ i.PRODUCT.name }} photo">
+            </a>
+          </td>
+          <td>
+            <div class="action-links">
+              <a href="/accept_request/{{ i.id }}">Accept</a>
+              <a href="/reject_request/{{ i.id }}" class="reject">Reject</a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="no-requests">
+      No new requests available at the moment.
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

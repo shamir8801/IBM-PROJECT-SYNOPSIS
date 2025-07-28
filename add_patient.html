@@ -1,0 +1,195 @@
+
+
+
+
+{% extends 'doctor/base.html' %}
+{% load static %}
+{% block body %}
+
+<!-- Optional: PWA manifest link -->
+<link rel="manifest" href="{% static 'site.webmanifest' %}">
+
+<style>
+    .form-container {
+        width: 60%;
+        max-width: 700px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 14px;
+        color: #555;
+    }
+
+    input[type="text"], input[type="date"], input[type="file"], select {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .submit-button {
+        text-align: center;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Add New Patient</h2>
+    <form id="form1" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Ward</td>
+                <td>
+                    <select name="ward" id="wardSelect" required>
+                        <option value="">Select Ward</option>
+                        {% for ward in wards %}
+                            <option value="{{ ward.id }}">{{ ward.ward_number }} - {{ ward.details }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Room</td>
+                <td>
+                    <select name="room" id="roomSelect" required>
+                        <option value="">Select Room</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" required pattern="[a-zA-Z .]{2,50}" placeholder="Enter name"></td>
+            </tr>
+            <tr>
+                <td>Mobile</td>
+                <td><input type="text" name="mob" required pattern="[9876][0-9]{9}" placeholder="Enter mobile"></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="gen" value="Male" checked> Male
+                    <input type="radio" name="gen" value="Female"> Female
+                    <input type="radio" name="gen" value="Others"> Others
+                </td>
+            </tr>
+            <tr>
+                <td>DOB</td>
+                <td><input type="date" name="dob" required></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" name="address" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="submit-button">
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#wardSelect').on('change', function () {
+            const wardId = $(this).val();
+
+            if (!wardId) {
+                $roomSelect.html('<option value="">Select Room</option>');
+                return;
+            }
+
+            $.ajax({
+                url: "{% url 'get_rooms' %}",
+                data: { 'ward_id': wardId },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("=======================")
+                    console.log(data)
+                    console.log("Fetched rooms:", data.rooms);  // Correct log
+
+                    let options = '<option value="">Select Room</option>';
+                     $('#roomSelect').empty();
+
+                      console.log("=======+++++++");
+                    data.rooms.forEach(function (room) {
+
+
+
+                        options += '<option value="' + room.id + '">' + room.room_number + ' - ' + room.details + '</option>';
+                    });
+                    console.log(options)
+
+                  $('select#roomSelect').append(options);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching rooms:", error);
+                    $roomSelect.html('<option value="">Error loading rooms</option>');
+                }
+            });
+        });
+    });
+{#</script>#}
+
+</script>
+
+{% endblock %}
+
+
+
